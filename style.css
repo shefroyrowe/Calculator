@@ -31,7 +31,7 @@ main {
 button {
     font-size: larger;
     margin-bottom: .5rem;
-}
+} 
 
 button:hover {
     background-color: aqua;
