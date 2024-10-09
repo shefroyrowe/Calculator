@@ -1,7 +1,8 @@
 //output
 const primaryDisplay = document.querySelector('.primary-display');
 const secondaryDisplay = document.querySelector('.primary-display');
-//keys
+//input
+const input = document.querySelector('input');
 const allKeys = document.querySelectorAll('.key');
 
 //arithmetic opperations
@@ -20,6 +21,31 @@ const calcFunctions = {
     },
 };
 
-const calculator = (leftHand, opperator, rightHand) => {
+let inputValue = '';
+allKeys.forEach((key) => {
+    addEventListener("click", (e) =>{
+        if (e.target.value === '=') {
+            inputValue = input.value;
+        }
+        console.log(inputValue);
+        input.value = '';
+    });
+   
+});
+
+
+const regex = /^(0|[1-9]\d*)$/g;
+
+let = leftHand = '';
+let = opperator = '';
+let = rightHand = '';
+
+let validInput = regex.test(input.value);
+
+//perform calculations and append to display
+const operate = (leftHand, opperator, rightHand) => {
 
 }
+
+
+

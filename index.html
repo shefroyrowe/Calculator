@@ -9,9 +9,9 @@
 <body>
     <main id="container">
         <!--display element-->
-        <div id="displays">
-            <div class="display primary-display"></div>
-            <div class="display secondary-display"></div>
+        <div id="display-container">
+            <input type="text" name="expression" id="expression">
+            <div class="display"></div>
         </div>
         <!--keys-->
         <div id="button-container">
@@ -27,7 +27,7 @@
             <button type="button" class="key" value="0">0</button>
             <br>
             <button type="button" class="key" value="clear">CLEAR</button>
-            <button type="button" class="key" value=".">&dot;</button>
+            <button type="button" class="key" value="."><span class="dot-align">.</span></button>
             <button type="button" class="key" value="+">&plus;</button>
             <button type="button" class="key" value="-">&minus;</button>
             <button type="button" class="key" value="*">&times;</button>
