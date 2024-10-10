@@ -1,6 +1,5 @@
 //output
-const primaryDisplay = document.querySelector('.primary-display');
-const secondaryDisplay = document.querySelector('.primary-display');
+const displayResults = document.querySelector('.display');
 //input
 const input = document.querySelector('input');
 const allKeys = document.querySelectorAll('.key');
@@ -21,31 +20,50 @@ const calcFunctions = {
     },
 };
 
-let inputValue = '';
-allKeys.forEach((key) => {
-    addEventListener("click", (e) =>{
-        if (e.target.value === '=') {
-            inputValue = input.value;
-        }
-        console.log(inputValue);
-        input.value = '';
-    });
-   
-});
-
-
-const regex = /^(0|[1-9]\d*)$/g;
-
+//helper variables
 let = leftHand = '';
 let = opperator = '';
 let = rightHand = '';
+let inputValue = '';
 
-let validInput = regex.test(input.value);
+//validate and capture input
+input.addEventListener("input", () => {
+    if (Number(input.value) ||
+        input.value === '+' ||
+        Number(input.value) ||
+        input.value === '-' ||
+        Number(input.value) ||
+        input.value === '*' ||
+        Number(input.value) ||
+        input.value === '/' ||
+        Number(input.value) ||
+        input.value === '.') {
 
-//perform calculations and append to display
+        inputValue = input.value;
+
+    } else {
+
+        input.value = '';
+
+    }
+    console.log(inputValue);
+});
+
+//calculate based on opperator selected
 const operate = (leftHand, opperator, rightHand) => {
-
-}
+    if (opperator === '+') {
+        return calcFunctions.sum(leftHand, rightHand);
+    }
+    if (opperator === '-') {
+        return calcFunctions.subtract(leftHand, rightHand);
+    }
+    if (opperator === '*') {
+        return calcFunctions.multiply(leftHand, rightHand);
+    }
+    if (opperator === '/') {
+        return calcFunctions.divide(leftHand, rightHand);
+    }
+};
 
 
 
