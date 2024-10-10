@@ -28,22 +28,17 @@ let inputValue = '';
 
 //validate and capture input
 input.addEventListener("input", () => {
-    if (Number(input.value) ||
-        input.value === '+' ||
-        Number(input.value) ||
-        input.value === '-' ||
-        Number(input.value) ||
-        input.value === '*' ||
-        Number(input.value) ||
-        input.value === '/' ||
-        Number(input.value) ||
-        input.value === '.') {
+    if (Number(input.value) || 
+    input.value.includes('+') ||
+    input.value.includes('-') ||
+    input.value.includes('/') ||
+    input.value.includes('*')) {
 
-        inputValue = input.value;
+        inputValue = input.value ;
 
     } else {
 
-        input.value = '';
+        input.value = inputValue;
 
     }
     console.log(inputValue);
@@ -78,28 +73,33 @@ allKeys.forEach(key => {
                 case '-':
                 case '*':
                 case '/':
+                    opperator = e.target.id;
+
                     if (!leftHand) {
+
                         leftHand = inputValue;
-                        opperator = e.target.id;
+                        inputValue += opperator;
+
+                    }
+                    if (inputValue.includes(opperator)) {
+
+                        rightHand = inputValue
+
                     } else {
-                        input.value = '';
-                    };
+
+                        input.value = inputValue;
+
+                    }
                     break;
                 case '.':
+                    if (!inputValue.includes('.')) {
+                        inputValue += '.';
+                    }
+                case '=':
+                case 'clear':
             }
         }
         console.log(inputValue);
-
-        /*
-        if (e.target.id === '+' ||
-            e.target.id === '-' ||
-            e.target.id === '*' ||
-            e.target.id === '/' ||
-            e.target.id === '.') {
-
-        }
-            */
-
     });//end eventLister
 });//end forEach loop
 
