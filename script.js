@@ -65,5 +65,42 @@ const operate = (leftHand, opperator, rightHand) => {
     }
 };
 
+//query button values
+allKeys.forEach(key => {
+    key.addEventListener("click", (e) => {
+
+        if (Number(e.target.id)) {
+            input.value += e.target.id;
+            inputValue += e.target.id;
+
+            switch (e.target.id) {
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                    if (!leftHand) {
+                        leftHand = inputValue;
+                        opperator = e.target.id;
+                    } else {
+                        input.value = '';
+                    };
+                    break;
+                case '.':
+            }
+        }
+        console.log(inputValue);
+
+        /*
+        if (e.target.id === '+' ||
+            e.target.id === '-' ||
+            e.target.id === '*' ||
+            e.target.id === '/' ||
+            e.target.id === '.') {
+
+        }
+            */
+
+    });//end eventLister
+});//end forEach loop
 
 
