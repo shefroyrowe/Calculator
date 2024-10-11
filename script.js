@@ -28,19 +28,17 @@ let inputValue = '';
 
 //validate and capture input
 input.addEventListener("input", () => {
-    if (Number(input.value) || 
-    input.value.includes('+') ||
-    input.value.includes('-') ||
-    input.value.includes('/') ||
-    input.value.includes('*')) {
+    if (Number(input.value) ||
+        input.value.includes('+') ||
+        input.value.includes('-') ||
+        input.value.includes('/') ||
+        input.value.includes('*')) {
 
-        inputValue = input.value ;
-
-    } else {
-
-        input.value = inputValue;
-
+        inputValue = input.value;
+        
     }
+    input.value = inputValue;
+
     console.log(inputValue);
 });
 
@@ -63,38 +61,29 @@ const operate = (leftHand, opperator, rightHand) => {
 //query button values
 allKeys.forEach(key => {
     key.addEventListener("click", (e) => {
-
         if (Number(e.target.id)) {
-            input.value += e.target.id;
-            inputValue += e.target.id;
 
             switch (e.target.id) {
                 case '+':
                 case '-':
                 case '*':
                 case '/':
-                    opperator = e.target.id;
-
-                    if (!leftHand) {
-
+                    if (!leftHand && !opperator) {
                         leftHand = inputValue;
-                        inputValue += opperator;
-
+                        opperator = e.target.id;
                     }
-                    if (inputValue.includes(opperator)) {
-
-                        rightHand = inputValue
-
-                    } else {
-
-                        input.value = inputValue;
-
+                    if (opperator && !rightHand) {
+                        rightHand = inputValue;
+                    }
+                    if (opperator) {
+                         opperator = opperator;
                     }
                     break;
                 case '.':
-                    if (!inputValue.includes('.')) {
+                    if (!inputValue.includes(".")) {
                         inputValue += '.';
-                    }
+                    } 
+                    break;
                 case '=':
                 case 'clear':
             }
