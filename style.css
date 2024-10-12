@@ -21,28 +21,34 @@ body {
     height: 4rem;
     width: 26rem;
     margin-bottom: 1rem;
-    margin-right: 1rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.primary-display,
+.main-display {
+    font-weight: bolder;
 }
 
 .primary-display {
     border: 1px solid gray;
     overflow: hidden;
-    border-left: none;
-    width: 50%;
+    width: 45%;
     height: 1.5rem;
+    border-left: none;
 }
 
 .main-display {
     font-size: 20px;
     height: 1.8em;
-    background-color: inherit;
     width: 100%;
+    background-color: inherit;
     color: black;
-    font-weight: 500;
 }
 
 main, 
-.main-display {
+.main-display,
+.primary-display {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,4 +65,11 @@ button {
 
 button:hover {
     background-color: aqua;
+}
+
+footer {
+    position: absolute;
+    align-self: flex-end;
+    height: 2rem;
+    margin: 0 auto;
 }
