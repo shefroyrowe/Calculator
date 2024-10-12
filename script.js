@@ -1,8 +1,15 @@
 //output
-const displayResults = document.querySelector('.display');
+const mainDisplay = document.querySelector('.main-display');
+const primaryDisplay = document.querySelector('.primary-display');
+
 //input
 const input = document.querySelector('input');
 const allKeys = document.querySelectorAll('.key');
+//helper variables
+let = leftHand = '';
+let = opperator = '';
+let = rightHand = '';
+let inputValue = '';
 
 //arithmetic opperations
 const calcFunctions = {
@@ -20,27 +27,35 @@ const calcFunctions = {
     },
 };
 
-//helper variables
-let = leftHand = '';
-let = opperator = '';
-let = rightHand = '';
-let inputValue = '';
+//query auxilary key values
+allKeys.forEach(key => {
+    key.addEventListener("click", (e) => {
+        let opp = '';
 
-//validate and capture input
-input.addEventListener("input", () => {
-    if (Number(input.value) ||
-        input.value.includes('+') ||
-        input.value.includes('-') ||
-        input.value.includes('/') ||
-        input.value.includes('*')) {
+        primaryDisplay.textContent += e.target.id;
+        leftHand += e.target.id
 
-        inputValue = input.value;
-        
-    }
-    input.value = inputValue;
+        if (!Number(e.target.id)) {
+            switch (e.target.id) {
+                case '+':
+                case '-':
+                case '/':
+                case '*':
+                    break;
+                case '.':
+                    break;
+                case 'clear':
+                    break;
+                case 'back':
+                    break;
+                case '=':
+                    break;
 
-    console.log(inputValue);
-});
+            }
+        }
+
+    });//end eventLister
+});//end forEach loop
 
 //calculate based on opperator selected
 const operate = (leftHand, opperator, rightHand) => {
@@ -57,39 +72,3 @@ const operate = (leftHand, opperator, rightHand) => {
         return calcFunctions.divide(leftHand, rightHand);
     }
 };
-
-//query button values
-allKeys.forEach(key => {
-    key.addEventListener("click", (e) => {
-        if (Number(e.target.id)) {
-
-            switch (e.target.id) {
-                case '+':
-                case '-':
-                case '*':
-                case '/':
-                    if (!leftHand && !opperator) {
-                        leftHand = inputValue;
-                        opperator = e.target.id;
-                    }
-                    if (opperator && !rightHand) {
-                        rightHand = inputValue;
-                    }
-                    if (opperator) {
-                         opperator = opperator;
-                    }
-                    break;
-                case '.':
-                    if (!inputValue.includes(".")) {
-                        inputValue += '.';
-                    } 
-                    break;
-                case '=':
-                case 'clear':
-            }
-        }
-        console.log(inputValue);
-    });//end eventLister
-});//end forEach loop
-
-

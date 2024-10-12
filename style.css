@@ -24,7 +24,15 @@ body {
     margin-right: 1rem;
 }
 
-.display {
+.primary-display {
+    border: 1px solid gray;
+    overflow: hidden;
+    border-left: none;
+    width: 50%;
+    height: 1.5rem;
+}
+
+.main-display {
     font-size: 20px;
     height: 1.8em;
     background-color: inherit;
@@ -33,12 +41,8 @@ body {
     font-weight: 500;
 }
 
-input {
-    outline: none;
-}
-
 main, 
-.display {
+.main-display {
     display: flex;
     align-items: center;
     justify-content: center;
