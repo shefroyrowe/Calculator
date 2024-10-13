@@ -153,4 +153,8 @@ allKeys.forEach(key => {
     and an opperator ('+','-','/','*') is pressed
     result should populate the primary display along with the 
     pressed opperator.
+
+-- add keyboard support
+-- turn ui to glass
+-- animated structure
 */
