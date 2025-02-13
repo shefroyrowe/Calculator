@@ -6,9 +6,9 @@ const primaryDisplay = document.querySelector('.primary-display');
 
 //helper variables
 let leftHand = '';
-let operator = ''; // Corrected typo: opperator to operator
+let operator = ''; 
 let rightHand = '';
-let calculated = false; // Flag to track if calculation has been performed
+let calculated = false; //track if calculation has been performed
 
 //arithmetic opperations object
 const calcFunctions = {
@@ -45,8 +45,7 @@ const operate = (leftHand, operator, rightHand) => {
     return result;
 };
 
-//query onscreen key values and assign values to 
-// keypressed variable and to primary display screen
+//query and evaluate key values
 allKeys.forEach(key => {
     key.addEventListener("click", (e) => {
         handleInput(e.target.id);
@@ -90,7 +89,7 @@ function handleInput(key) {
                 operator = key;
                 rightHand = '';
                 calculated = false;
-                mainDisplay.textContent = ''; // Clear main display for chained ops
+                mainDisplay.textContent = ''; // Clear main display for chained operationss
             }
             break;
 
@@ -129,7 +128,7 @@ function handleInput(key) {
                     rightHand = '';
                     calculated = true;
                 } else {
-                    mainDisplay.textContent = "Error"; // Or handle the error as needed
+                    mainDisplay.textContent = "Error"; 
                 }
             }
             break;
