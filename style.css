@@ -11,13 +11,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: aliceblue;
     background-color: blanchedalmond;
+    background-image: url('nature-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #display-container {
+    font-weight: bold;
     border-radius: 5px;
-    border: 2px solid rebeccapurple;
-    background-color: aliceblue;
+    border: 1px solid aliceblue;
+    color: orangered;
+    background-color: rgba(0, 255, 255, 0.26);
     height: 4rem;
     width: 26rem;
     margin-bottom: 1rem;
@@ -31,7 +37,7 @@ body {
 }
 
 .primary-display {
-    border: 1px solid gray;
+    border: 1px solid aliceblue;
     overflow: hidden;
     width: 45%;
     height: 1.5rem;
@@ -42,8 +48,6 @@ body {
     font-size: 20px;
     height: 1.8em;
     width: 100%;
-    background-color: inherit;
-    color: black;
 }
 
 main, 
@@ -61,10 +65,14 @@ main {
 button {
     font-size: larger;
     margin-bottom: .5rem;
+    border-radius: .5rem;
+    padding: .7rem;
+    border: none;
 } 
 
 button:hover {
-    background-color: aqua;
+    background-color: rgba(0, 255, 255, 0.185);
+    color: aqua;
 }
 
 footer {

@@ -6,155 +6,146 @@ const primaryDisplay = document.querySelector('.primary-display');
 
 //helper variables
 let leftHand = '';
-let opperator = '';
+let operator = ''; // Corrected typo: opperator to operator
 let rightHand = '';
-let limitFixed = 0;
+let calculated = false; // Flag to track if calculation has been performed
 
 //arithmetic opperations object
 const calcFunctions = {
-    sum: (a, b) => {
-        return a + b;
-    },
-    multiply: (a, b) => {
-        return a * b;
-    },
-    subtract: (a, b) => {
-        return a - b;
-    },
-    divide: (a, b) => {
-        return a / b;
-    },
+    sum: (a, b) => a + b,
+    multiply: (a, b) => a * b,
+    subtract: (a, b) => a - b,
+    divide: (a, b) => a / b,
 };
 
 //access arithmetic opperations object 
-//calculate based on opperator selected
-const operate = (leftHand, opperator, rightHand) => {
-    //store result from any 
+//calculate based on operator selected
+const operate = (leftHand, operator, rightHand) => {
+    const numLeft = Number(leftHand);
+    const numRight = Number(rightHand);
     let result = 0;
 
-    //addition
-    if (opperator === '+') {
-        result = calcFunctions.sum(leftHand, rightHand);
-    }
-    //subtraction
-    if (opperator === '-') {
-        result = calcFunctions.subtract(leftHand, rightHand);
-    }
-    //multiplication
-    if (opperator === '*') {
-        result = calcFunctions.multiply(leftHand, rightHand);
-    }
-    //divide
-    if (opperator === '/') {
-        result = calcFunctions.divide(leftHand, rightHand);
+    switch (operator) {
+        case '+':
+            result = calcFunctions.sum(numLeft, numRight);
+            break;
+        case '-':
+            result = calcFunctions.subtract(numLeft, numRight);
+            break;
+        case '*':
+            result = calcFunctions.multiply(numLeft, numRight);
+            break;
+        case '/':
+            result = calcFunctions.divide(numLeft, numRight);
+            break;
+        default:
+            return NaN; // Handle invalid operators
     }
 
-    //return result of equation
     return result;
 };
 
-//query key values
+//query onscreen key values and assign values to 
+// keypressed variable and to primary display screen
 allKeys.forEach(key => {
     key.addEventListener("click", (e) => {
+        handleInput(e.target.id);
+    });
+});
 
-        switch (e.target.id) {
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-            case '0':
-                if (!opperator &&
-                    !rightHand) {
-                    leftHand += e.target.id;
-                    primaryDisplay.textContent =
-                        `${leftHand}`;
+document.addEventListener('keydown', (e) => {
+    const key = e.key;
 
-                } else if (leftHand &&
-                    opperator) {
-                    rightHand += e.target.id;
-                    primaryDisplay.textContent =
-                        `${leftHand} ${opperator} ${rightHand}`;
-                }
-                break;
-            case '+':
-            case '-':
-            case '/':
-            case '*':
-                if (leftHand && !opperator) {
-                    opperator = e.target.id;
-                    primaryDisplay.textContent =
-                        `${leftHand} ${opperator} ${rightHand}`;
-                }
-                break;
-            case '.':
-                if (!opperator &&
-                    !rightHand &&
-                    !leftHand.includes('.')) {
-                    leftHand += '.';
-                    primaryDisplay.textContent =
-                        `${leftHand} ${opperator} ${rightHand}`;
+    if (/[0-9+\-*/.=]/.test(key) || key === "Backspace" || key === "Enter") {
+        e.preventDefault(); // Prevent default behavior for some keys
+        handleInput(key);
+    }
+});
 
-                } else if (opperator &&
-                    leftHand &&
-                    !rightHand.includes('.')) {
-                    rightHand += '.';
-                    primaryDisplay.textContent =
-                        `${leftHand} ${opperator} ${rightHand}`;
-                }
-                break;
-            case 'clear':
-                primaryDisplay.textContent = '';
-                mainDisplay.textContent = '';
-                leftHand = '';
-                opperator = '';
+
+function handleInput(key) {
+    switch (key) {
+        case '1': case '2': case '3': case '4': case '5':
+        case '6': case '7': case '8': case '9': case '0':
+            if (calculated) {
+                clearDisplay();
+                calculated = false;
+            }
+
+            if (!operator) {
+                leftHand += key;
+            } else {
+                rightHand += key;
+            }
+            break;
+
+        case '+': case '-': case '/': case '*':
+            if (leftHand && !operator) {
+                operator = key;
+                calculated = false;
+            } else if (leftHand && operator && rightHand) {
+                // Perform chained operations
+                const result = operate(leftHand, operator, rightHand);
+                leftHand = String(result);
+                operator = key;
                 rightHand = '';
-                break;
-            case 'back':
-                if (!opperator &&
-                    !rightHand) {
-                    leftHand = leftHand.slice(0, -1);
-                    primaryDisplay.textContent =
-                        `${leftHand} ${opperator} ${rightHand}`;
-                } else if (opperator &&
-                    !rightHand) {
-                    opperator = '';
-                    primaryDisplay.textContent =
-                        `${leftHand} ${opperator} ${rightHand}`;
-                } else if (opperator &&
-                    leftHand) {
-                    rightHand = rightHand.slice(0, -1);
-                    primaryDisplay.textContent =
-                        `${leftHand} ${opperator} ${rightHand}`;
-                }
-                break;
-            case '=':
-                //limit decimal places to 0nly 2 after the dot
-                limitFixed = `${operate(Number(leftHand), opperator, Number(rightHand))}`;
-                if (String(limitFixed).includes('.')) {
-                    mainDisplay.textContent = Number(limitFixed).toFixed(2);
+                calculated = false;
+                mainDisplay.textContent = ''; // Clear main display for chained ops
+            }
+            break;
+
+        case '.':
+            if (!operator && !leftHand.includes('.')) {
+                leftHand += key;
+            } else if (operator && !rightHand.includes('.')) {
+                rightHand += key;
+            }
+            break;
+
+        case 'clear':
+        case "Escape": //Keyboard clear
+            clearDisplay();
+            break;
+
+        case 'back':
+        case "Backspace":
+            if (rightHand) {
+                rightHand = rightHand.slice(0, -1);
+            } else if (operator) {
+                operator = '';
+            } else {
+                leftHand = leftHand.slice(0, -1);
+            }
+            break;
+
+        case '=':
+        case "Enter":
+            if (leftHand && operator && rightHand) {
+                const result = operate(leftHand, operator, rightHand);
+                if (!isNaN(result)) {
+                    mainDisplay.textContent = Number(result).toFixed(2);
+                    leftHand = String(result);
+                    operator = '';
+                    rightHand = '';
+                    calculated = true;
                 } else {
-                    mainDisplay.textContent = limitFixed;
+                    mainDisplay.textContent = "Error"; // Or handle the error as needed
                 }
+            }
+            break;
+    }
+    updateDisplay();
+}
 
-                break;
+function updateDisplay() {
+    primaryDisplay.textContent = `${leftHand} ${operator} ${rightHand}`;
+}
 
-        }
-    });//end eventLister
-});//end forEach loop
-
-///FEATURES TO IMPLIMENT
-/*
--- when result is being displayed in main display
-    and an opperator ('+','-','/','*') is pressed
-    result should populate the primary display along with the 
-    pressed opperator.
-
--- add keyboard support
--- turn ui to glass
--- animated structure
-*/
+function clearDisplay() {
+    primaryDisplay.textContent = '';
+    mainDisplay.textContent = '';
+    leftHand = '';
+    operator = '';
+    rightHand = '';
+    calculated = false;
+}
